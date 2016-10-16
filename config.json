@@ -1,0 +1,4 @@
+{
+    "port" : 8080,
+    "record-command" : "avconv -f alsa -ac 1 -i hw:1,0 -f mp3 pipe:1"
+}

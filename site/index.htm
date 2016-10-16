@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <style>
+            div, p {
+                margin:0px;
+                padding:0px;
+            }
+            #container {
+                width:100%;
+                height:100%;
+               position:fixed;
+            }
+            #top {
+                height:15%;
+            }
+            #middle {
+                height:75%;
+            }
+            #bottom {
+                height:10%;
+            }
+
+            button {
+                width:100%;
+                height:100%;
+                font-size:32px
+            }
+        </style>
+        <div>
+            <button onclick="play()" id="play-button">Play</button>
+        </div>
+        <script type="text/javascript">
+            var audio = null;
+
+            function getUrl() {
+                var url = window.location.href;
+                return url.substr(0, url.indexOf("#"));
+            }
+
+           
+            function stop() {
+                if (audio != null) {
+                    audio.pause();
+                    audio = null;
+                }
+                window.location = getUrl();
+            }
+
+            function startNewAudio() {
+                 var src = Date.now() + '.mp3';
+                 if (audio == null) {
+                    audio = new Audio(src);
+                 } else {
+                    audio.src = src;
+                    audio.pause();
+                 }
+                 audio.play();
+                 setTimeout(startNewAudio, 10 * 60 * 1000);
+            }
+
+            function play() {
+                startNewAudio();
+                const button = document.getElementById("play-button");
+                console.log(button);
+                button.onclick = stop;
+                button.innerHTML = "Stop";
+            }
+         </script> 
+    </body>
+</html>

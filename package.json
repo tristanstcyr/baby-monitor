@@ -1,0 +1,12 @@
+{
+  "name": "baby-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodejs server.js"
+  },
+  "author": "tristan.stcyr@gmail.com",
+  "license": "MIT",
+  "dependencies": {}
+}

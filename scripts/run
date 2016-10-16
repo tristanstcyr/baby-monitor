@@ -1,0 +1,42 @@
+#!/bin/bash
+
+LOCAL_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+REMOTE=0
+BACKGROUND=0
+
+while [[ $# -gt 0 ]]
+do
+case "$1" in
+    -r|--remote)
+    REMOTE=1
+    ;;
+    -b|--background)
+    BACKGROUND=1
+    ;;
+    *)
+    echo "usage: run [-r] [-b]"
+    exit 1
+    ;;
+esac
+shift
+done
+
+if [ $REMOTE == 1 ]
+then
+    source $LOCAL_PATH/remote.cfg
+    OPTIONS=""
+    if [ $BACKGROUND == 1 ]
+    then
+        OPTIONS='--background'
+    fi
+    ssh $REMOTE_HOST "$REMOTE_PATH/scripts/run $OPTIONS"
+else
+    pkill -9 nodejs
+    cd $LOCAL_PATH
+    if [ $BACKGROUND == 1 ]
+    then
+        npm start &> /dev/null &
+    else
+        npm start
+   fi
+fi

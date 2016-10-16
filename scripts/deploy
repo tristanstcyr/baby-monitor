@@ -1,0 +1,11 @@
+#!/bin/bash
+
+LOCAL_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PARENT_PATH="$(dirname "$LOCAL_PATH")"
+
+source $LOCAL_PATH/remote.cfg
+ssh $REMOTE_HOST -T <<HERE
+    pkill -9 nodejs
+    rm -rf $REMOTE_PATH
+HERE
+scp -r $PARENT_PATH $REMOTE_HOST:$REMOTE_PATH
